@@ -15,6 +15,7 @@ import javax.servlet.http.HttpServletResponse;
 import javax.swing.event.ListSelectionEvent;
 
 import org.json.simple.JSONObject;
+import org.leolo.album.function.Test;
 import org.leolo.album.function.Version;
 
 /**
@@ -48,12 +49,12 @@ public class MainServlet extends HttpServlet {
 		if("version".equals(tokenArray[0])){
 			resp = new Version().process(request, response, tokenArray);
 		}else if("test".equals(tokenArray[0])){
-			resp = new Version().process(request, response, tokenArray);
+			resp = new Test().process(request, response, tokenArray);
 		}else{
 			JSONResponse r = new JSONResponse();
 			r.put("error", "404");
 			r.put("info", "API end point does not exists");
-			response.sendError(404);
+//			response.sendError(404);
 			resp = r;
 		}
 		response.setContentType(resp.getContentType());
