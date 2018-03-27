@@ -1,6 +1,6 @@
 # README #
 
 
-### Who do I talk to? ###
+### Who make this? ###
 
 LO Kam Tao Leo <leolo@leolo.org>
