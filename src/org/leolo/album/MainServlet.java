@@ -46,7 +46,12 @@ public class MainServlet extends HttpServlet {
 		String [] tokenArray = new String[tokensList.size()];
 		tokensList.toArray(tokenArray);
 		ResponsePackage resp = null;
-		if("version".equals(tokenArray[0])){
+		if(tokenArray.length>0){
+			JSONResponse r = new JSONResponse();
+			r.put("error", "404");
+			r.put("info", "API end point does not exists");
+			resp = r;
+		}else if("version".equals(tokenArray[0])){
 			resp = new Version().process(request, response, tokenArray);
 		}else if("test".equals(tokenArray[0])){
 			resp = new Test().process(request, response, tokenArray);
@@ -54,7 +59,6 @@ public class MainServlet extends HttpServlet {
 			JSONResponse r = new JSONResponse();
 			r.put("error", "404");
 			r.put("info", "API end point does not exists");
-//			response.sendError(404);
 			resp = r;
 		}
 		response.setContentType(resp.getContentType());
