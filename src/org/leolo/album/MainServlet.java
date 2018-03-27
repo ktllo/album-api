@@ -46,7 +46,7 @@ public class MainServlet extends HttpServlet {
 		String [] tokenArray = new String[tokensList.size()];
 		tokensList.toArray(tokenArray);
 		ResponsePackage resp = null;
-		if(tokenArray.length>0){
+		if(tokenArray.length==0){
 			JSONResponse r = new JSONResponse();
 			r.put("error", "404");
 			r.put("info", "API end point does not exists");
