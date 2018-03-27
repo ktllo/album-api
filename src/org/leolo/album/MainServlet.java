@@ -47,6 +47,8 @@ public class MainServlet extends HttpServlet {
 		ResponsePackage resp = null;
 		if("version".equals(tokenArray[0])){
 			resp = new Version().process(request, response, tokenArray);
+		}if("test".equals(tokenArray[0])){
+			resp = new Version().process(request, response, tokenArray);
 		}
 		response.setContentType(resp.getContentType());
 		resp.write(response.getOutputStream());
