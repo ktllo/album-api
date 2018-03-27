@@ -12,6 +12,7 @@ import javax.servlet.http.HttpServletResponse;
 import org.leolo.album.APIProcess;
 import org.leolo.album.JSONResponse;
 import org.leolo.album.ResponsePackage;
+import org.leolo.album.Utils;
 
 public class Test implements APIProcess {
 
@@ -29,7 +30,21 @@ public class Test implements APIProcess {
 		for(int i=0;i<tokens.length;i++)
 			token.put(new Integer(i), tokens[i]);
 		resp.put("tokens", token);
-		resp.put("datetime", new java.util.Date());
+		resp.put("datetime", Utils.getISO8601Time());
+		Map<String, Object> params = new HashMap<>();
+		for(String name:request.getParameterMap().keySet()){
+			String [] array = request.getParameterValues(name);
+			if(array.length==1){
+				params.put(name, array[0]);
+			}else{
+				ArrayList<String> list = new ArrayList<>();
+				for(String s:array){
+					list.add(s);
+				}
+				params.put(name, list);
+			}
+		}
+		resp.put("parameters", params);
 		return resp;
 	}
 
