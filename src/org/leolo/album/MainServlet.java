@@ -47,8 +47,14 @@ public class MainServlet extends HttpServlet {
 		ResponsePackage resp = null;
 		if("version".equals(tokenArray[0])){
 			resp = new Version().process(request, response, tokenArray);
-		}if("test".equals(tokenArray[0])){
+		}else if("test".equals(tokenArray[0])){
 			resp = new Version().process(request, response, tokenArray);
+		}else{
+			JSONResponse r = new JSONResponse();
+			r.put("error", "404");
+			r.put("info", "API end point does not exists");
+			response.sendError(404);
+			resp = r;
 		}
 		response.setContentType(resp.getContentType());
 		resp.write(response.getOutputStream());
