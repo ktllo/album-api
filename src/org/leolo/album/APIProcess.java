@@ -7,5 +7,5 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 public interface APIProcess {
-	void process(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException;
+	ResponsePackage process(HttpServletRequest request, HttpServletResponse response, String [] tokens) throws ServletException, IOException;
 }

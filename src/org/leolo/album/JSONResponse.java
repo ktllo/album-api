@@ -1,6 +1,6 @@
 package org.leolo.album;
 
-import java.awt.List;
+import java.util.List;
 import java.io.ByteArrayOutputStream;
 import java.io.IOException;
 import java.io.PrintWriter;
@@ -44,7 +44,7 @@ public class JSONResponse extends ResponsePackage {
 		json.put(name, value);
 	}
 	@SuppressWarnings("unchecked")
-	public void put(String name, List value){
+	public void put(String name, @SuppressWarnings("rawtypes") List value){
 		json.put(name, value);
 	}
 	@SuppressWarnings("unchecked")
