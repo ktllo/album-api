@@ -3,14 +3,19 @@ package org.leolo.album;
 import java.io.IOException;
 import java.io.PrintWriter;
 import java.io.StringWriter;
+import java.util.ArrayList;
+import java.util.List;
+import java.util.StringTokenizer;
 
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.swing.event.ListSelectionEvent;
 
 import org.json.simple.JSONObject;
+import org.leolo.album.function.Version;
 
 /**
  * Servlet implementation class MainServlet
@@ -32,10 +37,17 @@ public class MainServlet extends HttpServlet {
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		String requestURL = request.getRequestURI().substring(request.getContextPath().length());
-		JSONResponse resp = new JSONResponse();
-		resp.put("api-level", 0);
-		resp.put("version", "0.0.1");
-		resp.put("request", requestURL);
+		ArrayList<String> tokensList = new ArrayList<>();
+		StringTokenizer st = new StringTokenizer(requestURL,"/");
+		while(st.hasMoreTokens()){
+			tokensList.add(st.nextToken());
+		}
+		String [] tokenArray = new String[tokensList.size()];
+		tokensList.toArray(tokenArray);
+		ResponsePackage resp = null;
+		if("version".equals(tokenArray[0])){
+			resp = new Version().process(request, response, tokenArray);
+		}
 		response.setContentType(resp.getContentType());
 		resp.write(response.getOutputStream());
 	}
