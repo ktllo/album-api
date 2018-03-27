@@ -21,6 +21,7 @@ public class Version implements APIProcess {
 		resp.put("min-api-level", "0");
 		resp.put("max-api-level", "0");
 		resp.put("extension", new ArrayList<String>());
+		resp.put("msg", "reo");
 		return resp;
 	}
 
