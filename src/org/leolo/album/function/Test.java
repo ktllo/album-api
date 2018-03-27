@@ -28,7 +28,7 @@ public class Test implements APIProcess {
 		Map<Integer, String> token = new HashMap<>();
 		for(int i=0;i<tokens.length;i++)
 			token.put(new Integer(i), tokens[i]);
-		resp.put("tokens", tokens);
+		resp.put("tokens", token);
 		resp.put("datetime", new java.util.Date());
 		return resp;
 	}
