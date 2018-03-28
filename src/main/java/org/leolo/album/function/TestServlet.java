@@ -1,6 +1,11 @@
 package org.leolo.album.function;
 
+import java.io.BufferedReader;
+import java.io.File;
+import java.io.FileReader;
 import java.io.IOException;
+import java.io.InputStream;
+import java.io.InputStreamReader;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map;
@@ -14,6 +19,8 @@ import javax.servlet.http.HttpServletResponse;
 
 import org.leolo.album.JSONResponse;
 import org.leolo.album.Utils;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 /**
  * Servlet implementation class TestServlet
@@ -21,8 +28,8 @@ import org.leolo.album.Utils;
 @WebServlet({ "/test", "/test/*" })
 public class TestServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
-       
-    /**
+    private final Logger logger = LoggerFactory.getLogger(TestServlet.class);
+    /**;
      * @see HttpServlet#HttpServlet()
      */
     public TestServlet() {
@@ -66,10 +73,17 @@ public class TestServlet extends HttpServlet {
 				}
 				params.put(name, list);
 			}
-		}
+		} 
+		InputStream stream = getServletContext().getResourceAsStream("/config");
+		BufferedReader br = new BufferedReader(new InputStreamReader(stream));
+		resp.put("p", br.readLine());
 		resp.put("parameters", params);
+		String rId = Utils.getNextRequestId();
+		resp.put("requestId", rId);
+		logger.info("rid={}",rId);
 		response.setContentType(resp.getContentType());
 		resp.write(response.getOutputStream());
+		
 	}
 
 	/**
