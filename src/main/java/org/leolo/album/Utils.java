@@ -11,7 +11,7 @@ import org.apache.commons.codec.binary.Base64;
 import org.mindrot.jbcrypt.BCrypt;
 
 public class Utils {
-	private static Calendar calendar = Calendar.getInstance();
+//	private static Calendar calendar = Calendar.getInstance();
 	private static SimpleDateFormat dateFormatISO8601 = new SimpleDateFormat(
         "yyyy-MM-dd'T'HH:mm:ssZ", Locale.US);
 	static{
@@ -27,6 +27,8 @@ public class Utils {
 	}
 	
 	public static String getISO8601Time(Date time){
+		Calendar calendar = Calendar.getInstance();
+		calendar.setTime(time);
 		return dateFormatISO8601.format(calendar.getTime());
 	}
 	
