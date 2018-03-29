@@ -10,6 +10,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import org.leolo.album.JSONResponse;
+import org.leolo.album.Utils;
 
 /**
  * Servlet implementation class VersionServlet
@@ -31,11 +32,7 @@ public class VersionServlet extends HttpServlet {
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		JSONResponse resp = new JSONResponse();
-		resp.put("version", "0.0.1");
-		resp.put("min-api-level", "0");
-		resp.put("max-api-level", "0");
-		resp.put("extension", new ArrayList<String>());
-		resp.put("msg", "reo");
+		resp.addAll(Utils.getVersionMap());
 		response.setContentType(resp.getContentType());
 		resp.write(response.getOutputStream());
 	}

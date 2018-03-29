@@ -6,6 +6,7 @@ import java.io.FileReader;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
+import java.net.URL;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map;
@@ -50,12 +51,7 @@ public class TestServlet extends HttpServlet {
 		String [] tokenArray = new String[tokensList.size()];
 		tokensList.toArray(tokenArray);
 		JSONResponse resp = new JSONResponse();
-		Map<String, Object> version = new HashMap<>();
-		version.put("version", "0.0.1");
-		version.put("min-api-level", "0");
-		version.put("max-api-level", "0");
-		version.put("extension", new ArrayList<String>());
-		resp.put("version", version);
+		resp.put("version", Utils.getVersionMap());
 		Map<Integer, String> token = new HashMap<>();
 		for(int i=0;i<tokenArray.length;i++)
 			token.put(new Integer(i), tokenArray[i]);
@@ -74,9 +70,8 @@ public class TestServlet extends HttpServlet {
 				params.put(name, list);
 			}
 		} 
-		InputStream stream = getServletContext().getResourceAsStream("/config");
-		BufferedReader br = new BufferedReader(new InputStreamReader(stream));
-		resp.put("p", br.readLine());
+		URL url=getServletContext().getResource("/WEB-INF/config");
+		logger.info("URL="+url.toString());
 		resp.put("parameters", params);
 		String rId = Utils.getNextRequestId();
 		resp.put("requestId", rId);

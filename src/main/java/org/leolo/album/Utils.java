@@ -1,9 +1,12 @@
 package org.leolo.album;
 
 import java.text.SimpleDateFormat;
+import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
+import java.util.HashMap;
 import java.util.Locale;
+import java.util.Map;
 import java.util.Random;
 import java.util.TimeZone;
 
@@ -44,5 +47,14 @@ public class Utils {
 	
 	public static boolean verifyPassword(String password, String hash){
 		return BCrypt.checkpw(password, hash);
+	}
+	
+	public static Map<String, Object> getVersionMap(){
+		Map<String, Object> map = new HashMap<>();
+		map.put("version", "0.0.1");
+		map.put("min-api-level", "0");
+		map.put("max-api-level", "0");
+		map.put("extension", new ArrayList<String>());
+		return map;
 	}
 }
