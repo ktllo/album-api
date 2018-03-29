@@ -37,6 +37,9 @@ public class DefultFilter implements Filter {
 		((HttpServletResponse) response).setHeader("Cache-Control", "no-cache, no-store, must-revalidate"); // HTTP 1.1.
 		((HttpServletResponse) response).setHeader("Pragma", "no-cache"); // HTTP 1.0.
 		((HttpServletResponse) response).setDateHeader("Expires", 0); // Proxies.
+		if(ConfigManager.getInstance()==null){
+			ConfigManager.init(request.getServletContext().getResource("/WEB-INF/config"));
+		}
 		chain.doFilter(request, response);
 	}
 

@@ -18,6 +18,7 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import org.leolo.album.ConfigManager;
 import org.leolo.album.JSONResponse;
 import org.leolo.album.Utils;
 import org.slf4j.Logger;
@@ -70,8 +71,7 @@ public class TestServlet extends HttpServlet {
 				params.put(name, list);
 			}
 		} 
-		URL url=getServletContext().getResource("/WEB-INF/config");
-		logger.info("URL="+url.toString());
+		logger.info("Test="+ConfigManager.getInstance().getString("Test"));
 		resp.put("parameters", params);
 		String rId = Utils.getNextRequestId();
 		resp.put("requestId", rId);

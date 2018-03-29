@@ -82,4 +82,8 @@ public class JSONResponse extends ResponsePackage {
 		}
 		return al;
 	}
+	
+	public void addAll(Map<String,Object> map){
+		json.putAll(map);
+	}
 }
