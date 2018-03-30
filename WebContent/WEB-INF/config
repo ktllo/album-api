@@ -1,1 +1,2 @@
 Test = boo
+include = /etc/test-album.conf
