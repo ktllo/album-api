@@ -29,7 +29,7 @@ public class PasswordGenerate extends HttpServlet {
 		JSONResponse resp = new JSONResponse();
 		String password = request.getParameter("password");
 		if(password==null){
-			resp.put("message", "Please append get/post parameter to the request");
+			resp.put("message", "Please append get/post parameter password to the request");
 		}else{
 			resp.put("hash", Utils.hashPassword(password));
 		}
