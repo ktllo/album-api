@@ -3,13 +3,13 @@
 	<Appenders>
 		<Console name="STDOUT" target="SYSTEM_OUT">
 			<PatternLayout>
-                <Pattern>%d %p [%C{1}] %m %ex%n</Pattern>
-            </PatternLayout>
+				<Pattern>%d %p [%C{1}] %m %ex%n</Pattern>
+			</PatternLayout>
 		</Console>
 	</Appenders>
 	<Loggers>
 		<Root level="trace">
-			<AppenderRef ref="STDOUT" level="TRACE"/>
+			<AppenderRef ref="STDOUT" level="TRACE" />
 		</Root>
 	</Loggers>
 </Configuration>

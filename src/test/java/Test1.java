@@ -9,14 +9,15 @@ import org.leolo.album.Utils;
 public class Test1 {
 
 	@Test
-	public void test() throws Exception {
+	public void passwordHash() throws Exception {
 		String password = "qwertyuiop";
 		String hash = Utils.hashPassword(password);
 		if(!Utils.verifyPassword(password, hash))
 			fail("Match PWD");
 		if(Utils.verifyPassword("QWERTYUIOP", hash))
 			fail("Misatch PWD");
-		
+		if(hash.equals(Utils.hashPassword(password)))
+			fail("Same hash upon rehash");
 	}
 
 }
