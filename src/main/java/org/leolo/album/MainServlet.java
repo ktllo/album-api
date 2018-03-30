@@ -35,6 +35,7 @@ public class MainServlet extends HttpServlet {
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+		response.setStatus(HttpServletResponse.SC_NOT_FOUND);
 		JSONResponse resp = new JSONResponse();
 		resp.put("error", "404");
 		resp.put("info", "API end point does not exists");
