@@ -233,5 +233,9 @@ public final class ConfigManager {
 	public int size() {
 		return config.size();
 	}
-	
+	public void reload(URL url){
+		ready = false;
+		_init(url);
+		
+	}
 }
