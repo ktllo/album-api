@@ -72,12 +72,14 @@ public class TestServlet extends HttpServlet {
 			}
 		} 
 		logger.info("Test="+ConfigManager.getInstance().getString("Test"));
+		logger.info("boo="+ConfigManager.getInstance().getString("boo"));
+		
 		resp.put("parameters", params);
 		String rId = Utils.getNextRequestId();
 		resp.put("requestId", rId);
 		logger.info("rid={}",rId);
 		response.setContentType(resp.getContentType());
-		resp.write(response.getOutputStream());
+		resp.write(response.getOutputStream());  
 		
 	}
 
