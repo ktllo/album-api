@@ -29,6 +29,7 @@ public class LoginServlet extends HttpServlet {
     }
 
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+		logger.debug("LOGIN START...");
 		Map<String, Object> postData = Utils.getPostMap(request);
 		String user = postData==null?null:(String) postData.get("username");
 		String password = postData==null?null:(String) postData.get("password");
