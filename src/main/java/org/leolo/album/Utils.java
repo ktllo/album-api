@@ -1,5 +1,7 @@
 package org.leolo.album;
 
+import java.io.BufferedReader;
+import java.io.IOException;
 import java.net.InetAddress;
 import java.net.UnknownHostException;
 import java.security.NoSuchAlgorithmException;
@@ -18,6 +20,7 @@ import java.util.TimeZone;
 import javax.servlet.http.HttpServletRequest;
 
 import org.apache.commons.codec.binary.Base64;
+import org.json.JSONObject;
 import org.mindrot.jbcrypt.BCrypt;
 
 public class Utils {
@@ -122,5 +125,22 @@ public class Utils {
 		String [] array = new String[al.size()];
 		al.toArray(array);
 		return array;
+	}
+	
+	public static Map getPostMap(HttpServletRequest request){
+		StringBuilder sb = new StringBuilder();
+		try {
+			BufferedReader br = request.getReader();
+			while(true){
+				String line = br.readLine();
+				if(line==null){
+					break;
+				}
+				sb.append(line);
+			}
+		} catch (IOException e) {
+			logger.error(e.getMessage(),e);
+		}
+		return new JSONObject(sb.toString()).toMap();
 	}
 }

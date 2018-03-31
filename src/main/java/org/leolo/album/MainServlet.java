@@ -1,20 +1,14 @@
 package org.leolo.album;
 
 import java.io.IOException;
-import java.io.PrintWriter;
-import java.io.StringWriter;
-import java.util.ArrayList;
-import java.util.List;
-import java.util.StringTokenizer;
 
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import javax.swing.event.ListSelectionEvent;
 
-import org.json.simple.JSONObject;
+
 
 /**
  * Servlet implementation class MainServlet

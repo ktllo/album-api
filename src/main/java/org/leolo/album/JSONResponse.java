@@ -7,7 +7,7 @@ import java.io.IOException;
 import java.io.PrintWriter;
 import java.util.Map;
 
-import org.json.simple.JSONObject;
+import org.json.JSONObject;
 
 public class JSONResponse extends ResponsePackage {
 
@@ -22,11 +22,7 @@ public class JSONResponse extends ResponsePackage {
 	protected byte[] getData() {
 		ByteArrayOutputStream baos = new ByteArrayOutputStream();
 		PrintWriter pw = new PrintWriter(baos);
-		try {
-			json.writeJSONString(pw);
-		} catch (IOException e) {
-			e.printStackTrace();
-		}
+		json.write(pw);
 		pw.flush();
 		return baos.toByteArray();
 	}
@@ -84,6 +80,8 @@ public class JSONResponse extends ResponsePackage {
 	}
 	
 	public void addAll(Map<String,Object> map){
-		json.putAll(map);
+		for(String key:map.keySet()){
+			json.put(key, map.get(key));
+		}
 	}
 }
