@@ -6,7 +6,7 @@
 				<Pattern>%d %p [%C{1}] %m %ex%n</Pattern>
 			</PatternLayout>
 		</Console>
-		<RollingFile name="file" fileName="test.log" filePattern="${catalina.base}/logs/test-%i.log">
+		<RollingFile name="file" fileName="test.log" filePattern="logs/test-%i.log">
             <PatternLayout>
                 <Pattern>%d %p [%C{1}] %m %ex%n</Pattern>
             </PatternLayout>
@@ -18,8 +18,9 @@
 	</Appenders>
 	<Loggers>
 		<Root level="trace">
-			<AppenderRef ref="STDOUT" level="TRACE" />
-			<AppenderRef ref="file" level="TRACE" />
+			<!-- <AppenderRef ref="STDOUT" level="TRACE" /> -->
+			<AppenderRef ref="file" level="debug" />
+			
 		</Root>
 	</Loggers>
 </Configuration>
