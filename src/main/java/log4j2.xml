@@ -6,6 +6,17 @@
 				<Pattern>%d %p [%C{1}] %m %ex%n</Pattern>
 			</PatternLayout>
 		</Console>
+		<appender name="FILE" class="org.apache.log4j.FileAppender">
+
+   <param name="file" value="${log}/log.out"/>
+   <param name="immediateFlush" value="true"/>
+   <param name="threshold" value="debug"/>
+   <param name="append" value="false"/>
+   
+  <PatternLayout>
+				<Pattern>%d %p [%C{1}] %m %ex%n</Pattern>
+			</PatternLayout>
+</appender>
 	</Appenders>
 	<Loggers>
 		<Root level="trace">
