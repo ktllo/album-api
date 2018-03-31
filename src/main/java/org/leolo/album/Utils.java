@@ -128,6 +128,7 @@ public class Utils {
 	}
 	
 	public static Map<String, Object> getPostMap(HttpServletRequest request){
+		logger.debug("Start reading data");
 		StringBuilder sb = new StringBuilder();
 		try {
 			BufferedReader br = request.getReader();
@@ -141,12 +142,15 @@ public class Utils {
 		} catch (IOException e) {
 			logger.error(e.getMessage(),e);
 		}
+		logger.debug("Start parsing data");
 		JSONObject obj = null;
 		try{
 			obj = new JSONObject(sb.toString());
 		}catch(org.json.JSONException e){
+			logger.debug("Fail parsing data");
 			return null;
 		}
+		logger.debug("Done parsing data");
 		return obj.toMap();
 	}
 }
