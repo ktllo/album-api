@@ -58,6 +58,7 @@ public class DatabaseManager implements Reloadable{
 
 	@Override
 	public void _reload() {
+		logger.info("Reload triggered");
 		ds = null;
 		BasicDataSource bds = new BasicDataSource();
 		bds.setDriverClassName("com.mysql.jdbc.Driver");

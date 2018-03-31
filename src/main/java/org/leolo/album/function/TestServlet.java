@@ -91,6 +91,7 @@ public class TestServlet extends HttpServlet {
 		}
 		resp.put("headers", headers);
 		resp.put("parameters", params);
+		resp.put("src", Utils.getSourceAddress(request));
 		String rId = Utils.getNextRequestId();
 		resp.put("requestId", rId);
 		logger.info("rid={}",rId);

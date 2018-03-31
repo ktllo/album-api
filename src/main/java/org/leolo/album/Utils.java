@@ -1,5 +1,7 @@
 package org.leolo.album;
 
+import java.net.InetAddress;
+import java.net.UnknownHostException;
 import java.security.NoSuchAlgorithmException;
 import java.security.SecureRandom;
 import java.text.SimpleDateFormat;
@@ -101,5 +103,24 @@ public class Utils {
 		byte [] array = new byte[18];
 		secureRandom.nextBytes(array);
 		return Base64.encodeBase64URLSafeString(array);
+	}
+	
+	public static String getSourceAddress(HttpServletRequest request){
+		if(request.getHeader("x-forwarded-for")!=null){
+			String [] a = tokenize(request.getHeader("x-forwarded-for"), ",");
+			return a[a.length-1];
+		}
+		return request.getRemoteAddr();
+	}
+	
+	public static String[] tokenize(String str, String delim){
+		StringTokenizer st = new StringTokenizer(str, delim);
+		ArrayList<String> al = new ArrayList<>();
+		while(st.hasMoreTokens()){
+			al.add(st.nextToken());
+		}
+		String [] array = new String[al.size()];
+		al.toArray(array);
+		return array;
 	}
 }

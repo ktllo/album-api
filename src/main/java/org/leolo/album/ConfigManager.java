@@ -245,6 +245,7 @@ public final class ConfigManager {
 		this.reloadList.add(obj);
 	}
 	public void performReload(){
+		logger.info("{} module needs to be reloaded", reloadList.size());
 		for(Reloadable r:reloadList){
 			r._reload();
 		}
