@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Configuration status="WARN">
+	<Appenders>
+		<Console name="STDOUT" target="SYSTEM_OUT">
+			<PatternLayout>
+				<Pattern>%d %p [%C{1}] %m %ex%n</Pattern>
+			</PatternLayout>
+		</Console>
+		<RollingFile name="file" fileName="test.log" filePattern="${catalina.base}/logs/test-%i.log">
+            <PatternLayout>
+                <Pattern>%d %p [%C{1}] %m %ex%n</Pattern>
+            </PatternLayout>
+            <Policies>
+                <SizeBasedTriggeringPolicy size="10 MB"/>
+            </Policies>
+            <DefaultRolloverStrategy max="20"/>
+        </RollingFile>
+	</Appenders>
+	<Loggers>
+		<Root level="trace">
+			<AppenderRef ref="STDOUT" level="TRACE" />
+			<AppenderRef ref="file" level="TRACE" />
+		</Root>
+	</Loggers>
+</Configuration>
