@@ -34,6 +34,7 @@ public class UserDao {
 			rs = pstmt.executeQuery();
 			int uid = -1;
 			if(rs.next()){
+				logger.debug("{}:{}",password, rs.getString(2).trim());
 				if(Utils.verifyPassword(password, rs.getString(2))){
 					ok = true;
 					uid = rs.getInt(1);
@@ -76,6 +77,6 @@ public class UserDao {
 				logger.error(e.getMessage(),e);
 			}
 		}
-		return null;
+		return token;
 	}
 }

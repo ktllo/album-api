@@ -72,11 +72,11 @@ public class Utils {
 	}
 	
 	public static String hashPassword(String password){
-		return BCrypt.hashpw(password, BCrypt.gensalt(12));
+		return BCrypt.hashpw(password.trim(), BCrypt.gensalt()).trim();
 	}
 	
 	public static boolean verifyPassword(String password, String hash){
-		return BCrypt.checkpw(password, hash);
+		return BCrypt.checkpw(password.trim(), hash.trim());
 	}
 	
 	public static Map<String, Object> getVersionMap(){
@@ -127,7 +127,7 @@ public class Utils {
 		return array;
 	}
 	
-	public static Map getPostMap(HttpServletRequest request){
+	public static Map<String, Object> getPostMap(HttpServletRequest request){
 		StringBuilder sb = new StringBuilder();
 		try {
 			BufferedReader br = request.getReader();
@@ -141,6 +141,12 @@ public class Utils {
 		} catch (IOException e) {
 			logger.error(e.getMessage(),e);
 		}
-		return new JSONObject(sb.toString()).toMap();
+		JSONObject obj = null;
+		try{
+			obj = new JSONObject(sb.toString());
+		}catch(org.json.JSONException e){
+			return null;
+		}
+		return obj.toMap();
 	}
 }

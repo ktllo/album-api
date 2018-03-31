@@ -7,13 +7,15 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import org.slf4j.Logger;
+
 /**
  * Servlet implementation class PasswordGenerate
  */
 @WebServlet("/helper/PasswordGenerate")
 public class PasswordGenerate extends HttpServlet {
 	private static final long serialVersionUID = 1L;
-       
+	private org.slf4j.Logger logger = org.slf4j.LoggerFactory.getLogger(PasswordGenerate.class);
     /**
      * @see HttpServlet#HttpServlet()
      */
@@ -31,7 +33,17 @@ public class PasswordGenerate extends HttpServlet {
 		if(password==null){
 			resp.put("message", "Please append get/post parameter password to the request");
 		}else{
-			resp.put("hash", Utils.hashPassword(password));
+			String hash = Utils.hashPassword(password);
+			logger.debug("{}:{}",password,hash);
+			logger.debug("Selftest {}", Utils.verifyPassword(password, hash));
+			try {
+				Thread.sleep(5000);
+			} catch (InterruptedException e) {
+				// TODO Auto-generated catch block
+				logger.error(e.getMessage(),e);
+			}
+			logger.debug("Selftest {}", Utils.verifyPassword(password, hash));
+			resp.put("hash",hash );
 		}
 		response.setContentType(resp.getContentType());
 		resp.write(response.getOutputStream());
