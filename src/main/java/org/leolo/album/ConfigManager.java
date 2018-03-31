@@ -4,9 +4,11 @@ import java.math.BigDecimal;
 import java.math.BigInteger;
 import java.net.URL;
 import java.util.Collection;
+import java.util.HashSet;
 import java.util.Iterator;
 import java.util.List;
 import java.util.Properties;
+import java.util.Set;
 
 import org.apache.commons.configuration2.Configuration;
 import org.apache.commons.configuration2.ConfigurationDecoder;
@@ -21,6 +23,7 @@ public final class ConfigManager {
 	private static ConfigManager instance = null;
 	Configuration config = null;
 	private boolean ready = false;
+	private Set<Reloadable> reloadList = new HashSet<>();
 	private ConfigManager(){
 //		URL url=getServletContext().getResource("/WEB-INF/config");
 	}
@@ -237,5 +240,13 @@ public final class ConfigManager {
 		ready = false;
 		_init(url);
 		
+	}
+	public void registerReload(Reloadable obj){
+		this.reloadList.add(obj);
+	}
+	public void performReload(){
+		for(Reloadable r:reloadList){
+			r._reload();
+		}
 	}
 }

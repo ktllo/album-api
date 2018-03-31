@@ -8,6 +8,7 @@ import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.net.URL;
 import java.util.ArrayList;
+import java.util.Enumeration;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.StringTokenizer;
@@ -73,7 +74,22 @@ public class TestServlet extends HttpServlet {
 		} 
 		logger.info("Test="+ConfigManager.getInstance().getString("Test"));
 		logger.info("boo="+ConfigManager.getInstance().getString("boo"));
-		
+		Map<String, Object> headers = new HashMap<>();
+		Enumeration<String> headerNames = request.getHeaderNames();
+		while(headerNames.hasMoreElements()){
+			String name = headerNames.nextElement();
+			Enumeration<String> values = request.getHeaders(name);
+			ArrayList<String> list = new ArrayList<>();
+			while(values.hasMoreElements()){
+				list.add(values.nextElement());
+			}
+			if(list.size()==1){
+				headers.put(name, list.get(0));
+			}else{
+				headers.put(name, list);
+			}
+		}
+		resp.put("headers", headers);
 		resp.put("parameters", params);
 		String rId = Utils.getNextRequestId();
 		resp.put("requestId", rId);

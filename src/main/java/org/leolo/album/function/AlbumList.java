@@ -1,4 +1,4 @@
-package org.leolo.album;
+package org.leolo.album.function;
 
 import java.io.IOException;
 import java.util.ArrayList;
@@ -10,6 +10,7 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import org.leolo.album.JSONResponse;
 import org.leolo.album.dao.AlbumDao;
 import org.leolo.album.model.Album;
 

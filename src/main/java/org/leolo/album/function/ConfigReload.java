@@ -1,4 +1,4 @@
-package org.leolo.album;
+package org.leolo.album.function;
 
 import java.io.IOException;
 import java.util.Arrays;
@@ -9,6 +9,9 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import org.leolo.album.ConfigManager;
+import org.leolo.album.JSONResponse;
+import org.leolo.album.Utils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -49,6 +52,7 @@ public class ConfigReload extends HttpServlet {
 			logger.warn("Request {} initized config reload.", rId);
 			resp.put("sdatetime", Utils.getISO8601TimeWithMilliSecond());
 			ConfigManager.getInstance().reload(request.getServletContext().getResource("/WEB-INF/config"));
+			ConfigManager.getInstance().performReload();
 			resp.put("edatetime", Utils.getISO8601TimeWithMilliSecond());
 			resp.put("Result","OK");
 			resp.put("requestId", rId);

@@ -1,5 +1,7 @@
 package org.leolo.album;
 
+import java.security.NoSuchAlgorithmException;
+import java.security.SecureRandom;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Calendar;
@@ -22,12 +24,20 @@ public class Utils {
 	        "yyyy-MM-dd'T'HH:mm:ssZ", Locale.US);
 	private static SimpleDateFormat dateFormatISO8601ms = new SimpleDateFormat(
 	        "yyyy-MM-dd'T'HH:mm:ss.SSSZ", Locale.US);
+	private static org.slf4j.Logger logger = org.slf4j.LoggerFactory.getLogger(Utils.class);
 	static{
 		dateFormatISO8601.setTimeZone(TimeZone.getTimeZone("GMT"));
 	}
 	private static final Random requestIdRandomProvider;
+	private static Random secureRandom;
 	static{
 		requestIdRandomProvider = new Random();
+		try {
+			secureRandom = SecureRandom.getInstanceStrong();
+		} catch (NoSuchAlgorithmException e) {
+			logger.error(e.getMessage(), e);
+			secureRandom = new Random();
+		}
 	}
 	
 	public static String getISO8601Time(){
@@ -85,5 +95,11 @@ public class Utils {
         String [] tokenArray = new String[tokensList.size()];
         tokensList.toArray(tokenArray);
         return tokenArray;
+	}
+	
+	public static String getAuthToken(){
+		byte [] array = new byte[18];
+		secureRandom.nextBytes(array);
+		return Base64.encodeBase64URLSafeString(array);
 	}
 }

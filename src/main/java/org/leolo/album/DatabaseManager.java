@@ -9,7 +9,7 @@ import org.apache.commons.dbcp2.BasicDataSource;
 
 
 
-public class DatabaseManager {
+public class DatabaseManager implements Reloadable{
 
 	private org.slf4j.Logger logger = org.slf4j.LoggerFactory.getLogger(DatabaseManager.class);
 	
@@ -27,6 +27,7 @@ public class DatabaseManager {
 	private DatabaseManager(){
 		try {
 			Class.forName("com.mysql.jdbc.Driver");
+			ConfigManager.getInstance().registerReload(this);
 			init();
 		} catch (ClassNotFoundException e) {
 			logger.error(e.getMessage(),e);
@@ -53,5 +54,20 @@ public class DatabaseManager {
 			logger.error(e.getMessage(),e);
 			return null;
 		}
+	}
+
+	@Override
+	public void _reload() {
+		ds = null;
+		BasicDataSource bds = new BasicDataSource();
+		bds.setDriverClassName("com.mysql.jdbc.Driver");
+		bds.setUrl("jdbc:mysql://"+ConfigManager.getInstance().getString("database.host", "localhost")+
+				"/"+ConfigManager.getInstance().getString("database.name", "album")+"?useSSL=false");
+		bds.setUsername(ConfigManager.getInstance().getString("database.user", "root"));
+		bds.setPassword(ConfigManager.getInstance().getString("database.password", ""));
+		bds.setDefaultAutoCommit(false);
+		bds.setMaxTotal(1024);
+		bds.setMaxIdle(300);
+		ds = bds;
 	}
 }
