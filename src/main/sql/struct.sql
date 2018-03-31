@@ -28,3 +28,11 @@ CREATE TABLE `album`(
     CONSTRAINT FOREIGN KEY (`owner`) REFERENCES `user`(`uid`),
     CONSTRAINT FOREIGN KEY (`thumbnail`) REFERENCES `thumbnail`(`id`)
 );
+
+CREATE TABLE `authtoken`(
+	`token` CHAR(24)  COLLATE ascii_bin NOT NULL PRIMARY KEY,
+	`user` INT UNSIGNED NOT NULL,
+	`creared` DATETIME NOT NULL DEFAULT NOW(),
+	`lastaccess` DATETIME NOT NULL,
+	CONSTRAINT FOREIGN KEY (`user`) REFERENCES `user`(`uid`)
+);
