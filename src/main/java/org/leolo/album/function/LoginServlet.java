@@ -54,7 +54,6 @@ public class LoginServlet extends HttpServlet {
 				resp.put("motd", "");
 			}
 		}
-
 		response.setContentType(resp.getContentType());
 		resp.write(response.getOutputStream());
 	}
