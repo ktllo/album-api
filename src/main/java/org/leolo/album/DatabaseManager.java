@@ -35,6 +35,7 @@ public class DatabaseManager implements Reloadable{
 	}
 	
 	private void init(){
+		logger.info("Init DB manager");
 		BasicDataSource bds = new BasicDataSource();
 		bds.setDriverClassName("com.mysql.jdbc.Driver");
 		bds.setUrl("jdbc:mysql://"+ConfigManager.getInstance().getString("database.host", "localhost")+
