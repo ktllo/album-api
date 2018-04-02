@@ -34,11 +34,12 @@ public class UserDao {
 			rs = pstmt.executeQuery();
 			int uid = -1;
 			if(rs.next()){
-				logger.info("{}:{}","*******", rs.getString(2).trim());
+				logger.info("Having user found. {}:{}","*******", rs.getString(2).trim());
 				if(Utils.verifyPassword(password, rs.getString(2))){
 					ok = true;
 					uid = rs.getInt(1);
 					token = Utils.getAuthToken();
+					logger.info("Auth token is {}", token);
 				}
 			}
 			if(rs!=null){
@@ -53,8 +54,10 @@ public class UserDao {
 				pstmt = conn.prepareStatement(SQL2);
 				pstmt.setString(1, token);
 				pstmt.setInt(2, uid);
+				logger.error("Going to instert record");
 				pstmt.executeUpdate();
 				conn.commit();
+				logger.error("Committed");
 			}
 		}catch(SQLException e){
 			logger.error(e.getMessage(),e);
