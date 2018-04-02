@@ -34,7 +34,7 @@ public class UserDao {
 			rs = pstmt.executeQuery();
 			int uid = -1;
 			if(rs.next()){
-				logger.debug("{}:{}",password, rs.getString(2).trim());
+				logger.info("{}:{}","*******", rs.getString(2).trim());
 				if(Utils.verifyPassword(password, rs.getString(2))){
 					ok = true;
 					uid = rs.getInt(1);
