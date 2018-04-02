@@ -26,7 +26,7 @@ public class LogFormat extends Formatter{
             throwable = sw.toString();
             sb.append(" ").append(throwable);
         }
-        
+        sb.append('\n');
 		return sb.toString();
 	}
 }
