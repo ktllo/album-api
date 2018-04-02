@@ -11,10 +11,10 @@ public class LogFormat extends Formatter{
 
 	private static DateFormat df = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss.SSS");
 	@Override
-	public String format(LogRecord record) {
+	public synchronized String format(LogRecord record) {
 		StringBuilder sb = new StringBuilder();
 		sb.append(df.format(new java.util.Date(record.getMillis()))).append(" ");
-		sb.append(record.getLevel()).append(" ");
+		sb.append(record.getLevel().getName()).append(" ");
 		sb.append(record.getSourceClassName()).append(" ").append(record.getMessage());
 		String throwable = "";
         if (record.getThrown() != null) {
