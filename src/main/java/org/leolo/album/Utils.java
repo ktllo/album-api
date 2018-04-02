@@ -37,12 +37,12 @@ public class Utils {
 	private static Random secureRandom;
 	static{
 		requestIdRandomProvider = new Random();
-		try {
-			secureRandom = SecureRandom.getInstanceStrong();
-		} catch (NoSuchAlgorithmException e) {
-			logger.error(e.getMessage(), e);
+//		try {
+//			secureRandom = SecureRandom.getInstanceStrong();
+//		} catch (NoSuchAlgorithmException e) {
+//			logger.error(e.getMessage(), e);
 			secureRandom = new Random();
-		}
+//		}
 	}
 	
 	public static String getISO8601Time(){
