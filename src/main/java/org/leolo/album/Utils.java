@@ -76,7 +76,13 @@ public class Utils {
 	}
 	
 	public static boolean verifyPassword(String password, String hash){
-		return BCrypt.checkpw(password.trim(), hash.trim());
+		logger.info("Strat checking password");
+		password = password.trim();
+		hash = hash.trim();
+		logger.info("trimmed");
+		boolean result =  BCrypt.checkpw(password, hash);
+		logger.info("checked");
+		return result;
 	}
 	
 	public static Map<String, Object> getVersionMap(){

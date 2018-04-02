@@ -36,10 +36,13 @@ public class UserDao {
 			if(rs.next()){
 				logger.info("Having user found. {}:{}","*******", rs.getString(2).trim());
 				if(Utils.verifyPassword(password, rs.getString(2))){
+					logger.info("Password match");
 					ok = true;
 					uid = rs.getInt(1);
 					token = Utils.getAuthToken();
 					logger.info("Auth token is {}", token);
+				}else{
+					logger.info("Password mismatch");
 				}
 			}
 			if(rs!=null){
