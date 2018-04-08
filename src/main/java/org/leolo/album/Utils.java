@@ -40,8 +40,13 @@ public class Utils {
 		try {
 			secureRandom = SecureRandom.getInstance("NativePRNGNonBlocking");
 		} catch (NoSuchAlgorithmException e) {
-			logger.error(e.getMessage(), e);
-			secureRandom = new Random();
+			try {
+				secureRandom = SecureRandom.getInstance("Windows-PRNG");
+			} catch (NoSuchAlgorithmException e1) {
+				logger.error(e.getMessage(), e);
+				secureRandom = new Random();
+			}
+			
 		}
 	}
 	
@@ -91,7 +96,6 @@ public class Utils {
 		map.put("min-api-level", "0");
 		map.put("max-api-level", "0");
 		ArrayList<String> ext = new ArrayList<String>();
-		ext.add("album.db");
 		map.put("extension", ext);
 		return map;
 	}

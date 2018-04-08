@@ -22,6 +22,7 @@ import javax.servlet.http.HttpServletResponse;
 import org.leolo.album.ConfigManager;
 import org.leolo.album.JSONResponse;
 import org.leolo.album.Utils;
+import org.leolo.album.dao.UserDao;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -45,13 +46,8 @@ public class TestServlet extends HttpServlet {
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		String requestURL = request.getRequestURI().substring(request.getContextPath().length());
-		ArrayList<String> tokensList = new ArrayList<>();
-		StringTokenizer st = new StringTokenizer(requestURL,"/");
-		while(st.hasMoreTokens()){
-			tokensList.add(st.nextToken());
-		}
-		String [] tokenArray = new String[tokensList.size()];
-		tokensList.toArray(tokenArray);
+		
+		String [] tokenArray = Utils.tokenize(requestURL, "/");
 		JSONResponse resp = new JSONResponse();
 		resp.put("version", Utils.getVersionMap());
 		Map<Integer, String> token = new HashMap<>();
@@ -96,6 +92,13 @@ public class TestServlet extends HttpServlet {
 		String rId = Utils.getNextRequestId();
 		resp.put("requestId", rId);
 		logger.info("rid={}",rId);
+		if(request.getParameter("token")!=null){
+			if(new UserDao().checkSession(request.getParameter("token"))){
+				resp.put("session_status", "VALID");
+			}else{
+				resp.put("session_status", "INVALID");
+			}
+		}
 		response.setContentType(resp.getContentType());
 		resp.write(response.getOutputStream());  
 		
