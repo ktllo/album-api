@@ -103,8 +103,8 @@ public class UserDao {
 		Connection conn=null;
 		PreparedStatement pstmt = null;
 		ResultSet rs = null;
-		final String SQL1 = "SELECT `lastaccess` FROM `authtoken` WHERE `authtoken` = ?";
-		final String SQL2 = "UPDATE `authtoken` SET `lastaccess` = NOW() WHERE `authtoken` = ?";
+		final String SQL1 = "SELECT `lastaccess` FROM `authtoken` WHERE `token` = ?";
+		final String SQL2 = "UPDATE `authtoken` SET `lastaccess` = NOW() WHERE `token` = ?";
 		boolean ok = false;
 		String token = null;
 		try{
