@@ -106,7 +106,6 @@ public class UserDao {
 		final String SQL1 = "SELECT `lastaccess` FROM `authtoken` WHERE `token` = ?";
 		final String SQL2 = "UPDATE `authtoken` SET `lastaccess` = NOW() WHERE `token` = ?";
 		boolean ok = false;
-		String token = null;
 		try{
 			conn = DatabaseManager.getInstance().getConnection();
 			pstmt = conn.prepareStatement(SQL1);
@@ -133,7 +132,7 @@ public class UserDao {
 			}
 			if(ok){
 				pstmt = conn.prepareStatement(SQL2);
-				pstmt.setString(1, token);
+				pstmt.setString(1, session);
 				pstmt.executeUpdate();
 				conn.commit();
 			}
