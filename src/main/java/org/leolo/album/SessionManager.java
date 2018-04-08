@@ -96,7 +96,7 @@ public class SessionManager  implements Reloadable{
 				conn = DatabaseManager.getInstance().getConnection();
 				pstmt = conn.prepareStatement(SQL1);
 				pstmt.setString(1, session);
-				pstmt.executeLargeUpdate();
+				pstmt.executeUpdate();
 			}catch(SQLException e){
 				logger.error(e.getMessage(),e);
 			}finally{
