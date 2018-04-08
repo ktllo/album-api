@@ -21,6 +21,7 @@ import javax.servlet.http.HttpServletResponse;
 
 import org.leolo.album.ConfigManager;
 import org.leolo.album.JSONResponse;
+import org.leolo.album.SessionManager;
 import org.leolo.album.Utils;
 import org.leolo.album.dao.UserDao;
 import org.slf4j.Logger;
@@ -93,11 +94,8 @@ public class TestServlet extends HttpServlet {
 		resp.put("requestId", rId);
 		logger.info("rid={}",rId);
 		if(request.getParameter("token")!=null){
-			if(new UserDao().checkSession(request.getParameter("token"))){
-				resp.put("session_status", "VALID");
-			}else{
-				resp.put("session_status", "INVALID");
-			}
+			resp.put("session_status", SessionManager.getInstance().checkSession(request.getParameter("token")).name());
+			SessionManager.getInstance().renewSession(request.getParameter("token"));
 		}
 		response.setContentType(resp.getContentType());
 		resp.write(response.getOutputStream());  
