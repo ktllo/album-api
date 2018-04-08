@@ -114,7 +114,7 @@ public class UserDao {
 			rs = pstmt.executeQuery();
 			if(rs.next()){
 				long lastAccessTime = rs.getDate(1).getTime();
-				logger.info("Session {} is last used {}ms ago. Limit is {} ms",System.currentTimeMillis()-lastAccessTime,getSessionLength());
+				logger.info("Session {} is last used {}ms ago. Limit is {} ms",session, System.currentTimeMillis()-lastAccessTime,getSessionLength());
 				if(System.currentTimeMillis()-lastAccessTime < getSessionLength()){
 					ok = true;
 				}
