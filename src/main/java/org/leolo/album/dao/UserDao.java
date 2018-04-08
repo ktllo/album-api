@@ -113,7 +113,7 @@ public class UserDao {
 			pstmt.setString(1, session);
 			rs = pstmt.executeQuery();
 			if(rs.next()){
-				long lastAccessTime = rs.getDate(1).getTime();
+				long lastAccessTime = rs.getTimestamp(1).getTime();
 				logger.info("Session last access is {}, current time is {}", 
 						Utils.getISO8601Time(new java.util.Date(lastAccessTime)),
 						Utils.getISO8601Time(new java.util.Date(System.currentTimeMillis()))
