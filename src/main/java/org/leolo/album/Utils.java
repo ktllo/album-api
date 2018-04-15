@@ -51,9 +51,12 @@ public class Utils {
 			
 		}
 	}
-	
+
 	public static String getISO8601Time(){
 		return getISO8601Time(new Date());
+	}
+	public static String getISO8601Time(long time){
+		return getISO8601Time(new Date(time));
 	}
 	
 	public static String getISO8601Time(Date time){
@@ -65,6 +68,10 @@ public class Utils {
 	
 	public static String getISO8601TimeWithMilliSecond(){
 		return getISO8601TimeWithMilliSecond(new Date());
+	}
+	
+	public static String getISO8601TimeWithMilliSecond(long time){
+		return getISO8601TimeWithMilliSecond(new Date(time));
 	}
 	
 	public static String getISO8601TimeWithMilliSecond(Date time){

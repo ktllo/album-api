@@ -10,6 +10,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import org.leolo.album.JSONResponse;
+import org.leolo.album.LoginDelayManager;
 import org.leolo.album.Utils;
 import org.leolo.album.dao.UserDao;
 
@@ -33,6 +34,28 @@ public class LoginServlet extends HttpServlet {
 		Map<String, Object> postData = Utils.getPostMap(request);
 		String user = postData==null?null:(String) postData.get("username");
 		String password = postData==null?null:(String) postData.get("password");
+		String ip = Utils.getSourceAddress(request);
+		long delay = LoginDelayManager.getInstance().getDelay(ip);
+		if(delay <=0){
+			
+		}else if(delay > 500){
+			JSONResponse resp = new JSONResponse();
+			resp.put("Result","Error");
+			long delayS = Math.round(Math.ceil(delay/1000));
+			if(delayS<=0) delayS = 1;//Sometimes it display as 0. 
+			resp.put("message", "You are still in login blackout period, please retry in "+delayS+" seconds.");
+			resp.put("blackout_till", Utils.getISO8601Time(LoginDelayManager.getInstance().getLockUntil(ip)));
+			response.setStatus(481);
+			response.setContentType(resp.getContentType());
+			resp.write(response.getOutputStream());
+			return;
+		}else{
+			try {
+				Thread.sleep(delay);
+			} catch (InterruptedException e) {
+				logger.error(e.getMessage(),e);
+			}
+		}
 		JSONResponse resp = new JSONResponse();
 		if(user==null||password==null){
 			resp.put("Result","Error");
@@ -44,10 +67,12 @@ public class LoginServlet extends HttpServlet {
 				logger.info("User {} from {} cannot login because incorrect username/password", user, Utils.getSourceAddress(request));
 				resp.put("Result","Error");
 				resp.put("message", "Username/password incorrect");
+				long till = LoginDelayManager.getInstance().setLock(ip);
+				resp.put("blackout_till", Utils.getISO8601Time(till));
 				response.setStatus(480);
 			}else{
 				logger.info("User {} from {} is logged in", user, Utils.getSourceAddress(request));
-				
+				LoginDelayManager.getInstance().remove(ip);
 				resp.put("Result","OK");
 				resp.put("message", "");
 				resp.put("token", token);

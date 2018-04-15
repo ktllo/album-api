@@ -1,0 +1,54 @@
+\documentclass[a4paper,12pt]{report}
+\usepackage[utf8]{inputenc}
+\usepackage[margin=0.725in]{geometry}
+\usepackage{amsmath}
+\usepackage{amssymb}
+\usepackage{fancyhdr}
+\usepackage{amsfonts}
+\usepackage{color}
+\usepackage[british]{babel}
+\usepackage[colorlinks]{hyperref}
+\usepackage{imakeidx}
+\title{API Design for album system Version 0.1.0}
+\author{Lo Kam Tao Leo\\leolo@leolo.org}
+\date{\today}
+\setcounter{tocdepth}{1}
+\setlength{\headheight}{15.2pt}
+\pagestyle{fancy}
+
+
+\begin{document}
+	\maketitle
+	\tableofcontents
+	\setcounter{chapter}{-1}
+	\chapter{Preface}
+	The key words ``MUST'', ``MUST NOT'', ``REQUIRED'', ``SHALL'', ``SHALL
+	NOT'', ``SHOULD'', ``SHOULD NOT'', ``RECOMMENDED'',  ``MAY'', and
+	``OPTIONAL'' in this document are to be interpreted as described in
+	RFC 2119.
+	\section{Disclaimer}
+	THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS ``AS IS''
+	AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE
+	IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE ARE
+	DISCLAIMED. IN NO EVENT SHALL THE COPYRIGHT HOLDER OR CONTRIBUTORS BE LIABLE
+	FOR ANY DIRECT, INDIRECT, INCIDENTAL, SPECIAL, EXEMPLARY, OR CONSEQUENTIAL
+	DAMAGES (INCLUDING, BUT NOT LIMITED TO, PROCUREMENT OF SUBSTITUTE GOODS OR
+	SERVICES; LOSS OF USE, DATA, OR PROFITS; OR BUSINESS INTERRUPTION) HOWEVER
+	CAUSED AND ON ANY THEORY OF LIABILITY, WHETHER IN CONTRACT, STRICT LIABILITY,
+	OR TORT (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE
+	OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
+	\chapter{Basic}
+	\section{Login delay}
+	This section contains 5 configure settings, \texttt{security.login.blackout.a }, \texttt{security.login.blackout.b }, \texttt{security.login.blackout.c }, \texttt{security.login.blackout.d }, \texttt{security.login.blackout.e }, \texttt{security.login.blackout.recount }.
+	
+	The blackout time between each failed login attempts as follows
+	\begin{equation*}
+	f(x) = \begin{cases}
+	\lceil a + b \times c ^ {\frac{x-1}{d}}\rceil        & \quad \text{if } x \leqslant e\\
+	f(e) + (x-e)\times[f(e) - f(e-1)]  & \quad \text{if } x > e
+	\end{cases}
+	\end{equation*}
+	
+	
+
+\end{document}
