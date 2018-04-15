@@ -2,7 +2,9 @@ package org.leolo.album;
 
 import java.io.BufferedReader;
 import java.io.IOException;
+import java.io.UnsupportedEncodingException;
 import java.net.InetAddress;
+import java.net.URLDecoder;
 import java.net.UnknownHostException;
 import java.security.NoSuchAlgorithmException;
 import java.security.SecureRandom;
@@ -153,14 +155,38 @@ public class Utils {
 			logger.error(e.getMessage(),e);
 		}
 		logger.debug("Start parsing data");
-		JSONObject obj = null;
-		try{
-			obj = new JSONObject(sb.toString());
-		}catch(org.json.JSONException e){
-			logger.debug("Fail parsing data");
-			return null;
+		if(sb.toString().startsWith("{")){
+			JSONObject obj = null;
+			try{
+				obj = new JSONObject(sb.toString());
+			}catch(org.json.JSONException e){
+				logger.debug("Fail parsing data");
+				return null;
+			}
+			logger.debug("Done parsing JSON data");
+			return obj.toMap();
+		}else{
+			Map<String, Object> map = new HashMap<>();
+			StringTokenizer st = new StringTokenizer(sb.toString(),"&");
+			while(st.hasMoreTokens()){
+				String pair = st.nextToken();
+				int split = pair.indexOf("=");
+				if(split > 0){
+					String name = pair.substring(0, split);
+					String value = pair.substring(split+1);
+					try {
+						value = URLDecoder.decode(value, "UTF-8");
+					} catch (UnsupportedEncodingException e) {
+						logger.error(e.getMessage(),e);
+						continue;
+					}
+					map.put(name, value);
+				}else{
+					map.put(pair, null);
+				}
+			}
+			return map;
 		}
-		logger.debug("Done parsing data");
-		return obj.toMap();
+		
 	}
 }
