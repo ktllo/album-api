@@ -4,6 +4,8 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.util.ArrayList;
+import java.util.List;
 
 import org.leolo.album.ConfigManager;
 import org.leolo.album.DatabaseManager;
@@ -93,7 +95,7 @@ public class UserDao {
 	
 	@Deprecated
 	public boolean checkSession(String session){
-		return SessionManager.getInstance().renewSession(session);
+		return new SessionDao().renewSession(session);
 	}
 	
 	

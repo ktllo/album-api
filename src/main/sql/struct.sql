@@ -1,3 +1,5 @@
+
+
 CREATE TABLE `user`(
 	`uid` INT UNSIGNED NOT NULL PRIMARY KEY,
     `uname` VARCHAR(32) COLLATE ascii_general_ci NOT NULL,
@@ -35,3 +37,4 @@ CREATE TABLE `authtoken`(
 	`creared` DATETIME NOT NULL DEFAULT NOW(),
 	`lastaccess` DATETIME NOT NULL
 )ENGINE = MEMORY;
+
