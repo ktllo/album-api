@@ -42,7 +42,7 @@ public class LoginServlet extends HttpServlet {
 			JSONResponse resp = new JSONResponse();
 			resp.put("Result","Error");
 			long delayS = Math.round(Math.ceil(delay/1000));
-			if(delayS<=0) delayS = 1;//Sometimes it display as 0. 
+			delayS++;//Off by one 
 			resp.put("message", "You are still in login blackout period, please retry in "+delayS+" seconds.");
 			resp.put("blackout_till", Utils.getISO8601Time(LoginDelayManager.getInstance().getLockUntil(ip)));
 			resp.put("backout", delay);
