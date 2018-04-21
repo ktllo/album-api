@@ -45,6 +45,7 @@ public class LoginServlet extends HttpServlet {
 			if(delayS<=0) delayS = 1;//Sometimes it display as 0. 
 			resp.put("message", "You are still in login blackout period, please retry in "+delayS+" seconds.");
 			resp.put("blackout_till", Utils.getISO8601Time(LoginDelayManager.getInstance().getLockUntil(ip)));
+			resp.put("backout", delay);
 			response.setStatus(481);
 			response.setContentType(resp.getContentType());
 			resp.write(response.getOutputStream());
@@ -68,6 +69,7 @@ public class LoginServlet extends HttpServlet {
 				resp.put("Result","Error");
 				resp.put("message", "Username/password incorrect");
 				long till = LoginDelayManager.getInstance().setLock(ip);
+				resp.put("backout", LoginDelayManager.getInstance().getDelay(ip));
 				resp.put("blackout_till", Utils.getISO8601Time(till));
 				response.setStatus(480);
 			}else{
