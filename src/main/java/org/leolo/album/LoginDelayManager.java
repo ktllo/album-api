@@ -16,7 +16,7 @@ public class LoginDelayManager implements Reloadable{
 		long lastFailure;
 		long lastDelayTo;
 	}
-	private long a,b,c,d;
+	private long a,b,c,d,reset;
 	private int e;
 	
 	private long f_e, ddx_fe;
@@ -62,6 +62,9 @@ public class LoginDelayManager implements Reloadable{
 		}
 		int attempt = e.attempt + 1;
 		e.attempt = attempt;
+		if(System.currentTimeMillis() - e.lastFailure > reset){
+			e.attempt = 1;
+		}
 		e.lastFailure = System.currentTimeMillis();
 		if(e.lastDelayTo>System.currentTimeMillis()){
 			e.lastDelayTo = e.lastDelayTo + calculate(attempt);
@@ -108,6 +111,7 @@ public class LoginDelayManager implements Reloadable{
 		c = ConfigManager.getInstance().getLong("security.login.blackout.c",2);
 		d = ConfigManager.getInstance().getLong("security.login.blackout.d",3);
 		e = ConfigManager.getInstance().getInt("security.login.blackout.e",10);
+		reset = ConfigManager.getInstance().getLong("security.login.blackout.recount",3600000);
 		f_e = _calcBlackoutTimeLower(e);
 		ddx_fe = _calcBlackoutTimeLower(e) - _calcBlackoutTimeLower(e-1);
 	}

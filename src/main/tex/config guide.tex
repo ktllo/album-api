@@ -9,7 +9,8 @@
 \usepackage[british]{babel}
 \usepackage[colorlinks]{hyperref}
 \usepackage{imakeidx}
-\title{API Design for album system Version 0.1.0}
+\usepackage{tabularx}
+\title{Configuration guide for album system Version 0.1.0}
 \author{Lo Kam Tao Leo\\leolo@leolo.org}
 \date{\today}
 \setcounter{tocdepth}{1}
@@ -41,13 +42,25 @@
 	\section{Login delay}
 	This section contains 5 configure settings, \texttt{security.login.blackout.a }, \texttt{security.login.blackout.b }, \texttt{security.login.blackout.c }, \texttt{security.login.blackout.d }, \texttt{security.login.blackout.e }, \texttt{security.login.blackout.recount }.
 	
-	The blackout time between each failed login attempts as follows
-	\begin{equation*}
+	\begin{tabularx}{\textwidth}{c||c|c|X}
+		Parameter Name & Datatype & Default Value & Description\\\hline
+		\texttt{security.login.blackout.a }&\texttt{long}& 1000 & The parameter $a$ in the formula~\ref{eq_s_ld_1}. Unit in millisecond.\\
+		\texttt{security.login.blackout.b }&\texttt{long}& 2000 &The parameter $b$ in the formula~\ref{eq_s_ld_1}. Unit in millisecond.\\
+		\texttt{security.login.blackout.c }&\texttt{long}& 2 &The parameter $c$ in the formula~\ref{eq_s_ld_1}.\\
+		\texttt{security.login.blackout.d }&\texttt{long}& 3 &The parameter $d$ in the formula~\ref{eq_s_ld_1}.\\
+		\texttt{security.login.blackout.e }&\texttt{int}& 10 &The parameter $e$ in the formula~\ref{eq_s_ld_1}.\\
+		\texttt{security.login.blackout.recount }&\texttt{long}& 360000&Time before the counter is reset without a successful login. 
+	\end{tabularx}
+	
+	\medskip
+	
+	The blackout time between each failed login attempts as follows\label{eq_s_ld_1}
+	\begin{equation}
 	f(x) = \begin{cases}
 	\lceil a + b \times c ^ {\frac{x-1}{d}}\rceil        & \quad \text{if } x \leqslant e\\
 	f(e) + (x-e)\times[f(e) - f(e-1)]  & \quad \text{if } x > e
 	\end{cases}
-	\end{equation*}
+	\end{equation}
 	
 	
 
